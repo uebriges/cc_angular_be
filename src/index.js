@@ -5,21 +5,26 @@ const fetch = (...args) =>
 const app = express();
 console.log('asdfkljdf');
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   if (!('url' in req.query)) res.end("No parameter 'url' is given.");
   const urlArr = extractUrls(req.query.url);
   console.log('urlArr: ', urlArr);
+  let response;
+  let text;
+  let csvArr = [];
 
-  urlArr.map((url) => {
-    const response = fetch(url)
-      .then((response) => {
-        return response.text();
-      })
-      .then((text) => {
-        console.log('text: ', text);
-        res.send('This is the answer');
-      });
-  });
+  // Collect all CSV contents in an array
+  await Promise.all(
+    urlArr.map(async (url) => {
+      response = await fetch(url);
+      text = await response.text();
+      csvArr.push(text);
+    }),
+  );
+
+  console.log('csvArr: ', csvArr);
+
+  res.send('This is the answer');
 });
 
 app.listen(3100, () => {
