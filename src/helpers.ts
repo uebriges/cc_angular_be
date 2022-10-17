@@ -1,5 +1,19 @@
-const mostSpeechesOnTopic = (topic, data) => {
-  let speechesOnTopic = {};
+import { IData } from './types';
+
+interface ISpeechesOnTopic {
+  [k: string]: number;
+}
+
+interface ISpeechesPerPolitian {
+  [k: string]: number;
+}
+
+const extractUrls = (params: string | string[]) => {
+  return Array.isArray(params) ? params : [params];
+};
+
+const mostSpeechesOnTopic = (topic: string, data: IData[]) => {
+  let speechesOnTopic: ISpeechesOnTopic = {};
   let politianWithMostSpeechesOnTopic;
 
   // Collect all entries with speeches about "Internal security"
@@ -26,7 +40,7 @@ const mostSpeechesOnTopic = (topic, data) => {
   return politianWithMostSpeechesOnTopic;
 };
 
-const viewestWordsInTotal = (data) => {
+const viewestWordsInTotal = (data: IData[]) => {
   let politian;
 
   const numberOfWords = data.reduce((prev, current) => {
@@ -42,8 +56,8 @@ const viewestWordsInTotal = (data) => {
   return politian;
 };
 
-const mostSpeechesIn = (year, data) => {
-  let speechesPerPolitican = {};
+const mostSpeechesIn = (year: number, data: IData[]) => {
+  let speechesPerPolitican: ISpeechesPerPolitian = {};
   let politicianWithMostSpeeches;
 
   // Count speeches per politian
@@ -71,4 +85,9 @@ const mostSpeechesIn = (year, data) => {
   return politicianWithMostSpeeches;
 };
 
-module.exports = { mostSpeechesOnTopic, viewestWordsInTotal, mostSpeechesIn };
+export {
+  extractUrls,
+  mostSpeechesIn,
+  mostSpeechesOnTopic,
+  viewestWordsInTotal,
+};
