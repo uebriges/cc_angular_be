@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     /* Language and Environment */
-    "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "lib": ["es6"] /* Modules */,
-    "module": "commonjs" /* Specify what module code is generated. */,
+    "target": "ES5" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "lib": ["es6", "DOM", "ES5"] /* Modules */,
+    "moduleResolution": "Node",
+    "module": "ES2022" /* Specify what module code is generated. */,
     "rootDir": "src" /* Specify the root folder within your source files. */,
-    "resolveJsonModule": true /* Enable importing .json files. */,
+    // "resolveJsonModule": true /* Enable importing .json files. */,
     // "noResolve": true,                                /* Disallow 'import's, 'require's or '<reference>'s from expanding the number of files TypeScript should add to a project. */
+    // "moduleResolution": "Node",
 
     /* JavaScript Support */
     "allowJs": true /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */,

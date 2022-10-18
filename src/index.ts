@@ -6,10 +6,8 @@ import {
   mostSpeechesIn,
   mostSpeechesOnTopic,
   viewestWordsInTotal,
-} from './helpers';
+} from './helpers.js';
 import { IData } from './types';
-
-const helpers = require('./helpers');
 
 const app: Express = express();
 let aggregatedData: IData[] = [];
