@@ -44,13 +44,13 @@ app.get('/', async (req: Request, res: Response) => {
     aggregatedData = [...aggregatedData, ...data];
   });
 
-  console.log('Aggregated data: ', aggregatedData);
-
   const answer = {
     mostSpeeches: mostSpeechesIn(2012, aggregatedData),
     mostSecurity: mostSpeechesOnTopic('Internal Security', aggregatedData),
     leastWordy: viewestWordsInTotal(aggregatedData),
   };
+
+  console.log('answer: ', answer);
 
   res.status(200).send(answer);
 });
