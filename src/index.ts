@@ -6,14 +6,8 @@ import {
   mostSpeechesIn,
   mostSpeechesOnTopic,
   viewestWordsInTotal,
-} from './helpers';
+} from './helpers.js';
 import { IData } from './types';
-
-// const express = require('express');
-// const fetch = (...args) =>
-//   import('node-fetch').then(({ default: fetch }) => fetch(...args));
-// const Papa = require('papaparse');
-const helpers = require('./helpers');
 
 const app: Express = express();
 let aggregatedData: IData[] = [];
