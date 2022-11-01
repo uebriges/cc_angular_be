@@ -1,58 +1,15 @@
 import express, { Express, Request, Response } from 'express';
-import fetch from 'node-fetch';
-import Papa from 'papaparse';
-import {
-  extractUrls,
-  mostSpeechesIn,
-  mostSpeechesOnTopic,
-  viewestWordsInTotal,
-} from './helpers.js';
-import { IData } from './types';
+import { retrieveEnsemblAssemblyData } from './helpers.js';
 
 const app: Express = express();
-let aggregatedData: IData[] = [];
+// let aggregatedData: IData[] = [];
 
 app.get('/', async (req: Request, res: Response) => {
-  if (!('url' in req.query)) res.end("No parameter 'url' is given.");
+  console.log('This is my gene app');
 
-  const urlArr = extractUrls(req.query.url as string | string[]);
-  let response;
-  let text;
-  let csvArr: string[] = [];
-  let data: IData[];
+  const data = await retrieveEnsemblAssemblyData();
 
-  // Collect all CSV contents in an array
-  await Promise.all(
-    urlArr.map(async (url) => {
-      response = await fetch(url);
-      text = await response.text();
-      csvArr.push(text);
-    }),
-  );
-
-  // Parse CSVs to array of objects
-  csvArr.forEach((csv) => {
-    data = Papa.parse<IData>(csv, {
-      header: true,
-      dynamicTyping: true,
-      skipEmptyLines: true,
-      transform: (value, field) => {
-        if (field === 'Date') return new Date(value);
-        return value;
-      },
-    }).data;
-    aggregatedData = [...aggregatedData, ...data];
-  });
-
-  const answer = {
-    mostSpeeches: mostSpeechesIn(2012, aggregatedData),
-    mostSecurity: mostSpeechesOnTopic('Internal Security', aggregatedData),
-    leastWordy: viewestWordsInTotal(aggregatedData),
-  };
-
-  console.log('answer: ', answer);
-
-  res.status(200).send(answer);
+  res.status(200).send(data);
 });
 
 app.listen(3100, () => {
