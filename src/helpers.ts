@@ -9,6 +9,7 @@ interface IEnsemblAssembly {
 
 // Get data from a public DB
 const retrieveEnsemblAssemblyData = async (): Promise<IEnsemblAssembly[]> => {
+  // Public DB: https://rnacentral.org/help/public-database
   const sql = postgres(
     'postgres://reader:NWDMCE5xdipIjRrp@hh-pgsql-public.ebi.ac.uk:5432/pfmegrnargs',
   );
